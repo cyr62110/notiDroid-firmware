@@ -3,14 +3,28 @@
  * 
  */
 
+#include "ndEventBusCorePredefinedEvents.h"
+
 #ifndef NDEVENTBUSCORE_H
 #define	NDEVENTBUSCORE_H
 
-typedef union _event_t {
-	
-} eventDescriptor_t;
+/**
+ * Initialize the eventbus before starting using it. It will configure some of
+ * its internal variables to make it work.
+ */
+void initEventBus();
 
+/**
+ * Push an event on the eventbus.
+ * @param event The event
+ */
+void triggerEvent(event_t event);
 
+/**
+ * 
+ * @param out
+ */
+void nextEvent(event_t* out);
 
-#endif	/* NDEVENTBUSCORE_H */
+#endif
 

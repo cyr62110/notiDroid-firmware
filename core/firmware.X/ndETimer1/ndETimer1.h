@@ -1,6 +1,6 @@
 /**
- * ndETimer1 is a library to help you to use the Timer1 module included in your Pic
- * with the event-bus.
+ * ndETimer1 is a library to help you to use the Timer1 module included in your
+ * PIC.
  *
  * Not all operations that are possible through the registers are available with
  * this API. The main concern of this API is to help you to use the eventbus.

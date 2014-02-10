@@ -8,6 +8,11 @@ void interrupt isr() {
     
 }
 
+void test(void* addr) {
+    TRISB = 0;
+    PORTB = 1;
+}
+
 int main(int argc, char** argv) {
 
     TRISA = 0;
@@ -16,6 +21,8 @@ int main(int argc, char** argv) {
     /* We configure the interruption */
     INTCONbits.GIE = 1;
     INTCONbits.PEIE = 1;
+
+    test((void*)main); /* This is the trick behind all the eventbus architecture */
 
     timer1Config_t config;
     setUpTimer1(config);

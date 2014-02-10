@@ -4,7 +4,15 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>ndEventBusCore/ndEventBusCore.h</itemPath>
+      <logicalFolder name="f1" displayName="ndEventBusCore" projectFiles="true">
+        <itemPath>ndEventBusCore/ndEventBusCore.h</itemPath>
+        <itemPath>ndEventBusCore/ndEventBusCoreConstants.h</itemPath>
+        <itemPath>ndEventBusCore/ndEventBusCoreTypes.h</itemPath>
+        <itemPath>ndEventBusCore/ndEventBusCorePredefinedEvents.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f2" displayName="ndFlash" projectFiles="true">
+        <itemPath>ndFlash/ndFlash.h</itemPath>
+      </logicalFolder>
       <itemPath>ndETimer1/ndETimer1.h</itemPath>
       <itemPath>ndCore.h</itemPath>
       <itemPath>/Users/cyr62110/Documents/Projets/notiDroid/core/firmware.X/ndCoreConfigurationBits.h</itemPath>
@@ -16,6 +24,9 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <logicalFolder name="f1" displayName="ndFlash" projectFiles="true">
+        <itemPath>ndFlash/ndFlash.c</itemPath>
+      </logicalFolder>
       <itemPath>main.c</itemPath>
       <itemPath>ndEventBusCore/ndEventBusCore.c</itemPath>
       <itemPath>ndETimer1/ndETimer1.c</itemPath>
@@ -130,6 +141,7 @@
         <property key="ToolFirmwareFilePath"
                   value="Press to browse for a specific firmware version"/>
         <property key="ToolFirmwareOption.UseLatestFirmware" value="true"/>
+        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="false"/>

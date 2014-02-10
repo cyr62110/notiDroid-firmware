@@ -13,4 +13,22 @@
 #define EVENT_TYPE_HW 2
 #define EVENT_TYPE_SW 3
 
+/**
+ *
+ */
+#define EVENT_MODULE_EVENTBUS 0
+
+/**
+ * 
+ */
+#define EVENT_SPECIAL_NOEVENT 0 /** The is no event available */
+#define EVENT_SPECIAL_SKIP_TO_START 1
+
+/**
+ */
+#define EVENT_EMPTY_PAYLOAD 0
+#define EVENT_1BYTE_PAYLOAD 1
+#define EVENT_2BYTES_PAYLOAD 2
+#define EVENT_4BYTES_PAYLOAD 3
+
 #endif
