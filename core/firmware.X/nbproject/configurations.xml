@@ -12,6 +12,7 @@
       </logicalFolder>
       <logicalFolder name="f2" displayName="ndFlash" projectFiles="true">
         <itemPath>ndFlash/ndFlash.h</itemPath>
+        <itemPath>ndFlash/ndFlashTypes.h</itemPath>
       </logicalFolder>
       <itemPath>ndETimer1/ndETimer1.h</itemPath>
       <itemPath>ndCore.h</itemPath>

@@ -1,8 +1,13 @@
-_setUpTimer1: CODE, 276 0 18
-_main: CODE, 132 0 52
-_test: CODE, 294 0 10
-__initialization: CODE, 254 0 12
+_writeFlash: CODE, 216 0 76
+_main: CODE, 132 0 84
+_openFlash: CODE, 480 0 26
+_test: CODE, 554 0 10
+_eraseFlash: CODE, 506 0 26
+__initialization: CODE, 532 0 12
+_doWrite: CODE, 366 0 48
 _isr: CODE, 8 0 120
-_onTimer1Interrupt: CODE, 184 0 36
-_setTimer1: CODE, 220 0 34
-Total: 282
+_on: CODE, 564 0 4
+_onTimer1Interrupt: CODE, 414 0 36
+_flushFlash: CODE, 292 0 74
+_seekFlash: CODE, 450 0 30
+Total: 546
