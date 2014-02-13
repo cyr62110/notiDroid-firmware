@@ -22,8 +22,10 @@
  * Must be done before doing any kind of operation on the flash.
  * You cannot open the flash and the eeprom at the same time.
  * TODO : handle the case when a dev wants to open the flash and the eeprom
+ * 
+ * Return 0 if the module cannot access the internal flash memory, otherwise return -1.
  */
-void openFlash();
+uint8_t openFlash();
 
 /**
  * Close an operation on the flash.

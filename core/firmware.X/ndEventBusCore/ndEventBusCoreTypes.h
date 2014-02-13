@@ -4,17 +4,26 @@
 #define NDEVENTBUSCORETYPES_H_
 
 /**
- * Structure of an event
+ * Structure defining what is an eventCode.
+ * Each type of event that will be send on the event has its own uniq code.
+ * The code is used to know which function will be called by the event dispatcher.
+ */
+typedef union _eventCode_t {
+	struct {
+		unsigned type : 2; /* Type of this event, one of EVENT_TYPE_* constant */
+        unsigned moduleId : 6; /* Id of the module that have sent this event */
+       	unisgned eventId : 8 /**/
+	};
+	uint16_t eventCode;
+} eventCode_t; 
+
+/**
+ * Structure defining an event during the runtime.
+ * An event has is code to determine its kind but also a payload that
+ * contains some data related to this particular occurence of the event.
  */
 typedef struct _event_t {
-    union {
-        struct {
-            unsigned type : 2; /* Type of this event, one of EVENT_TYPE_* constant */
-            unsigned moduleId : 4; /* Id of the module that have sent this event */
-            unsigned eventId : 2; /* Id of the event in the module */
-        };
-        uint8_t eventCode;
-    };
+    eventCode_t eventCode; /* Identificator of the current event type */
     uint8_t payloadSize; /* Number of bytes that are data enclosed in this event */
     uint8_t payload[4]; /* Data */
 } event_t;

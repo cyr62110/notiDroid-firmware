@@ -1,6 +1,8 @@
 #include "ndFlash.h"
 #include "ndFlashTypes.h"
 
+#include "../ndInternalMemory/ndInternalMemory.h"
+
 /**
  * Internal function that handle all the procedure to really write all the bytes
  * to the flash memory after all 16 words have been loaded.
@@ -21,35 +23,62 @@ void doWrite(uint8_t erase);
 
 flashOperationInternalState_t currentOperation;
 
-void openFlash() {
+uint8_t openFlash() {
+	if(currentOperation.isOpened == 1 || !openInternalMemory())
+		return 0;
+	
     currentOperation.isOpened = 1;
     currentOperation.numberOfBytesWritten = 0;
     currentOperation.startAddress = 0;
+    
+    return -1;
 }
 
 void closeFlash() {
+	if(currentOperation.isOpened == 0)
+		return;
+	
     /* If we have done at least one write, we store the data on the flash */
     if(currentOperation.containsAtLeastOneWrite)
         flushFlash();
     currentOperation.isOpened = 0;
+    
+    /* We ends by releasing the lock on the registers */
+	closeInternalMemory();
 }
 
+/* TODO : Test with skip of flush case */
 void seekFlash(uint24_t flashAddress) {
     if(!currentOperation.isOpened)
         return;
-    /* TODO : handle the case when a write operation is already ongoing when
-     the dev call this methods*/
-    /* We are at the start, we must skip to the block and write FFh to have */
-
+	if(currentOperation.containsAtLeastOneWrite) {
+		/* If we are skipping more than 32 - numberOfBytesWritten, we call the skip function.
+		   Otherwise, we flush the modification and do a simple jump */
+		int32_t numberOfSkippedBytes = flashAddress - currentOperation.startAddress 
+		  	- current.numberOfByteWritten;
+	  	if(numberOfSkippedBytes > 0 && numberOfSkippedBytes) {
+	  		skipFlash(numberOfSkippedBytes);
+	  		return;
+  		} else 
+  			flushFlash();
+	} 
     /* We configure the pointer to be right ant the value in the internal state too */
     TBLPTR = flashAddress;
     currentOperation.startAddress = flashAddress;
+    currentOperation.numberOfBytesWritten = 0;
 }
 
-//TODO
+/* TODO */
 void skipFlash(uint8_t numberOfBytes) {
     if(!currentOperation.isOpened)
         return;
+        
+    if(currentOperation.containsAtLeastOneWrite && numberOfBytes > 32 - currentOperation.numberOfBytesWritten) {
+    	/* TODO */
+	}
+	else {
+		/* TODO */
+	}
 }
 
 void writeFlash(uint8_t data) {
@@ -106,4 +135,5 @@ void doWrite(uint8_t erase) {
     /* And we reinitialise our internal start for more writting */
     currentOperation.numberOfBytesWritten = 0;
     currentOperation.containsAtLeastOneWrite = 0;
+    currentOperation.startAddress += 32;
 }
