@@ -27,6 +27,11 @@ uint8_t openFlash() {
 	if(currentOperation.isOpened == 1 || !openInternalMemory())
 		return 0;
 	
+	/* We intialize part of the EECON1 register */
+	EECON1bits.EEPGD = 1;
+    EECON1bits.CFGS = 0;
+	
+	/* We initialize the internal state to support next operartion on flash */
     currentOperation.isOpened = 1;
     currentOperation.numberOfBytesWritten = 0;
     currentOperation.startAddress = 0;
@@ -119,9 +124,7 @@ void flushFlash() {
 }
 
 void doWrite(uint8_t erase) {
-    /* We configure our register */
-    EECON1bits.EEPGD = 1;
-    EECON1bits.CFGS = 0;
+    /* We enable the writting */
     EECON1bits.FREE = erase;
     EECON1bits.WREN = 1;
 
@@ -131,6 +134,9 @@ void doWrite(uint8_t erase) {
     EECON2 = 0xAA;
     EECON1bits.WR = 1;
     INTCONbits.GIE = 1;
+    
+    /* We reinitialize the enable flag so no more writting can be done */
+    EECON1bits.WREN = 0;
 
     /* And we reinitialise our internal start for more writting */
     currentOperation.numberOfBytesWritten = 0;
