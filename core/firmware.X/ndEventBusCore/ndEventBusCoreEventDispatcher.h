@@ -1,5 +1,28 @@
 /**
+ * The event dispatcher is the heart of the eventbus. It calls the right function according 
+ * to the eventcode.
  * 
+ * Calling a function dynamically is not possible with the instruction set of a pic.
+ * So we are using a little trick to make this possible :
+ * 
+ * The function in C : 
+ *  - Test if it is a not empty event, if not return.
+ *  - Load the eventcode in PRODH/L
+ *  - If it is an hardware event, goto the block managing hardware modules
+ *  - If it is an software event, goto the block managing software modules
+ * 
+ * A block managing some module/events :
+ *  - Compare PRODH/L on the id,
+ * 	- If there is a match, call the block managing events of this module
+ *  - Else, return
+ * 
+ * So to add a module to the event dispatcher, you must follow this procedure :
+ *  - Write the following code in the block managing S/H modules
+ * 		if(PRODH == moduleId)
+ * 			goto nextEventBlockFlashAddress
+ *  - Then write this part of function for each events handled
+ * 		if(PRODL == eventId)
+ * 			goto functionAddress
  */
 
 #include "ndEventBusCoreTypes.h"

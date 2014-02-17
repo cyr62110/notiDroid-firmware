@@ -35,7 +35,16 @@
  */
 #define EVENTBUS_RESERVED_EEPROM_LENGTH 1
 
-#define EVENTBUS_EVENTHANDLER_START_ADDRESS
+/**
+ * We define the maximum number of module that our event dispatcher can handle by type.
+ */
+#define EVENTDISPATCHER_MAX_NUMBER_OF_MODULE_PER_TYPE 4  
+
+#define EVENTDISPATCHER_MODULES_BLOCK_LENGHT 
+
+#define EVENTDISPATCHER_BLOCK_HARDWARE_MODULES_START_ADDRESS
+
+
 #define EVENTBUS_
 
 #endif
