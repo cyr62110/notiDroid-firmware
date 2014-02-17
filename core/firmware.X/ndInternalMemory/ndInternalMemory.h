@@ -5,7 +5,7 @@
  * This module should not be used in application developpement.
  */
 
-#include <stdint.h>
+#include "../ndCore.h"
 
 #ifndef NDINTERNALMEMORY_H_
 #define NDINTERNALMEMORY_H_
@@ -17,6 +17,15 @@
  * Or 0 is another module has the lock.
  */
 uint8_t openInternalMemory();
+
+
+/**
+ * Configure the bits so the real write operation is executed.
+ * This function is part of the internal work done by ndFlash, ndEeprom, ndNonEmptyFlash modules.
+ *
+ * /!\ Do not use in your program unless you know what you are doing.
+ */
+void doWriteInternalMemory();
 
 /**
  * Release the lock.

@@ -45,17 +45,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=ndFlash/ndFlash.c main.c ndEventBusCore/ndEventBusCore.c ndETimer1/ndETimer1.c
+SOURCEFILES_QUOTED_IF_SPACED=ndFlash/ndFlash.c main.c ndETimer1/ndETimer1.c ndEeprom/ndEeprom.c ndInternalMemory/ndInternalMemory.c ndEventBusCore/ndEventBusCore.c ndEventBusCore/ndEventBusCoreEventDispatcher.asm ndEventBusCore/ndEventBusCoreEventDispatcher.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/ndFlash/ndFlash.p1 ${OBJECTDIR}/main.p1 ${OBJECTDIR}/ndEventBusCore/ndEventBusCore.p1 ${OBJECTDIR}/ndETimer1/ndETimer1.p1
-POSSIBLE_DEPFILES=${OBJECTDIR}/ndFlash/ndFlash.p1.d ${OBJECTDIR}/main.p1.d ${OBJECTDIR}/ndEventBusCore/ndEventBusCore.p1.d ${OBJECTDIR}/ndETimer1/ndETimer1.p1.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/ndFlash/ndFlash.p1 ${OBJECTDIR}/main.p1 ${OBJECTDIR}/ndETimer1/ndETimer1.p1 ${OBJECTDIR}/ndEeprom/ndEeprom.p1 ${OBJECTDIR}/ndInternalMemory/ndInternalMemory.p1 ${OBJECTDIR}/ndEventBusCore/ndEventBusCore.p1 ${OBJECTDIR}/ndEventBusCore/ndEventBusCoreEventDispatcher.obj ${OBJECTDIR}/ndEventBusCore/ndEventBusCoreEventDispatcher.p1
+POSSIBLE_DEPFILES=${OBJECTDIR}/ndFlash/ndFlash.p1.d ${OBJECTDIR}/main.p1.d ${OBJECTDIR}/ndETimer1/ndETimer1.p1.d ${OBJECTDIR}/ndEeprom/ndEeprom.p1.d ${OBJECTDIR}/ndInternalMemory/ndInternalMemory.p1.d ${OBJECTDIR}/ndEventBusCore/ndEventBusCore.p1.d ${OBJECTDIR}/ndEventBusCore/ndEventBusCoreEventDispatcher.obj.d ${OBJECTDIR}/ndEventBusCore/ndEventBusCoreEventDispatcher.p1.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/ndFlash/ndFlash.p1 ${OBJECTDIR}/main.p1 ${OBJECTDIR}/ndEventBusCore/ndEventBusCore.p1 ${OBJECTDIR}/ndETimer1/ndETimer1.p1
+OBJECTFILES=${OBJECTDIR}/ndFlash/ndFlash.p1 ${OBJECTDIR}/main.p1 ${OBJECTDIR}/ndETimer1/ndETimer1.p1 ${OBJECTDIR}/ndEeprom/ndEeprom.p1 ${OBJECTDIR}/ndInternalMemory/ndInternalMemory.p1 ${OBJECTDIR}/ndEventBusCore/ndEventBusCore.p1 ${OBJECTDIR}/ndEventBusCore/ndEventBusCoreEventDispatcher.obj ${OBJECTDIR}/ndEventBusCore/ndEventBusCoreEventDispatcher.p1
 
 # Source Files
-SOURCEFILES=ndFlash/ndFlash.c main.c ndEventBusCore/ndEventBusCore.c ndETimer1/ndETimer1.c
+SOURCEFILES=ndFlash/ndFlash.c main.c ndETimer1/ndETimer1.c ndEeprom/ndEeprom.c ndInternalMemory/ndInternalMemory.c ndEventBusCore/ndEventBusCore.c ndEventBusCore/ndEventBusCoreEventDispatcher.asm ndEventBusCore/ndEventBusCoreEventDispatcher.c
 
 
 CFLAGS=
@@ -94,6 +94,30 @@ ${OBJECTDIR}/main.p1: main.c  nbproject/Makefile-${CND_CONF}.mk
 	@-${MV} ${OBJECTDIR}/main.d ${OBJECTDIR}/main.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/main.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
+${OBJECTDIR}/ndETimer1/ndETimer1.p1: ndETimer1/ndETimer1.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/ndETimer1 
+	@${RM} ${OBJECTDIR}/ndETimer1/ndETimer1.p1.d 
+	@${RM} ${OBJECTDIR}/ndETimer1/ndETimer1.p1 
+	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  -D__DEBUG=1 --debugger=pickit3  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,+asmfile,-speed,+space,-debug --addrqual=ignore --mode=free -P -N255 --warn=0 --asmlist --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib --output=-mcof,+elf:multilocs --stack=compiled:auto:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/ndETimer1/ndETimer1.p1  ndETimer1/ndETimer1.c 
+	@-${MV} ${OBJECTDIR}/ndETimer1/ndETimer1.d ${OBJECTDIR}/ndETimer1/ndETimer1.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/ndETimer1/ndETimer1.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/ndEeprom/ndEeprom.p1: ndEeprom/ndEeprom.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/ndEeprom 
+	@${RM} ${OBJECTDIR}/ndEeprom/ndEeprom.p1.d 
+	@${RM} ${OBJECTDIR}/ndEeprom/ndEeprom.p1 
+	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  -D__DEBUG=1 --debugger=pickit3  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,+asmfile,-speed,+space,-debug --addrqual=ignore --mode=free -P -N255 --warn=0 --asmlist --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib --output=-mcof,+elf:multilocs --stack=compiled:auto:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/ndEeprom/ndEeprom.p1  ndEeprom/ndEeprom.c 
+	@-${MV} ${OBJECTDIR}/ndEeprom/ndEeprom.d ${OBJECTDIR}/ndEeprom/ndEeprom.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/ndEeprom/ndEeprom.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/ndInternalMemory/ndInternalMemory.p1: ndInternalMemory/ndInternalMemory.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/ndInternalMemory 
+	@${RM} ${OBJECTDIR}/ndInternalMemory/ndInternalMemory.p1.d 
+	@${RM} ${OBJECTDIR}/ndInternalMemory/ndInternalMemory.p1 
+	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  -D__DEBUG=1 --debugger=pickit3  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,+asmfile,-speed,+space,-debug --addrqual=ignore --mode=free -P -N255 --warn=0 --asmlist --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib --output=-mcof,+elf:multilocs --stack=compiled:auto:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/ndInternalMemory/ndInternalMemory.p1  ndInternalMemory/ndInternalMemory.c 
+	@-${MV} ${OBJECTDIR}/ndInternalMemory/ndInternalMemory.d ${OBJECTDIR}/ndInternalMemory/ndInternalMemory.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/ndInternalMemory/ndInternalMemory.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
 ${OBJECTDIR}/ndEventBusCore/ndEventBusCore.p1: ndEventBusCore/ndEventBusCore.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/ndEventBusCore 
 	@${RM} ${OBJECTDIR}/ndEventBusCore/ndEventBusCore.p1.d 
@@ -102,13 +126,13 @@ ${OBJECTDIR}/ndEventBusCore/ndEventBusCore.p1: ndEventBusCore/ndEventBusCore.c  
 	@-${MV} ${OBJECTDIR}/ndEventBusCore/ndEventBusCore.d ${OBJECTDIR}/ndEventBusCore/ndEventBusCore.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/ndEventBusCore/ndEventBusCore.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
-${OBJECTDIR}/ndETimer1/ndETimer1.p1: ndETimer1/ndETimer1.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/ndETimer1 
-	@${RM} ${OBJECTDIR}/ndETimer1/ndETimer1.p1.d 
-	@${RM} ${OBJECTDIR}/ndETimer1/ndETimer1.p1 
-	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  -D__DEBUG=1 --debugger=pickit3  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,+asmfile,-speed,+space,-debug --addrqual=ignore --mode=free -P -N255 --warn=0 --asmlist --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib --output=-mcof,+elf:multilocs --stack=compiled:auto:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/ndETimer1/ndETimer1.p1  ndETimer1/ndETimer1.c 
-	@-${MV} ${OBJECTDIR}/ndETimer1/ndETimer1.d ${OBJECTDIR}/ndETimer1/ndETimer1.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/ndETimer1/ndETimer1.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+${OBJECTDIR}/ndEventBusCore/ndEventBusCoreEventDispatcher.p1: ndEventBusCore/ndEventBusCoreEventDispatcher.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/ndEventBusCore 
+	@${RM} ${OBJECTDIR}/ndEventBusCore/ndEventBusCoreEventDispatcher.p1.d 
+	@${RM} ${OBJECTDIR}/ndEventBusCore/ndEventBusCoreEventDispatcher.p1 
+	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  -D__DEBUG=1 --debugger=pickit3  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,+asmfile,-speed,+space,-debug --addrqual=ignore --mode=free -P -N255 --warn=0 --asmlist --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib --output=-mcof,+elf:multilocs --stack=compiled:auto:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/ndEventBusCore/ndEventBusCoreEventDispatcher.p1  ndEventBusCore/ndEventBusCoreEventDispatcher.c 
+	@-${MV} ${OBJECTDIR}/ndEventBusCore/ndEventBusCoreEventDispatcher.d ${OBJECTDIR}/ndEventBusCore/ndEventBusCoreEventDispatcher.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/ndEventBusCore/ndEventBusCoreEventDispatcher.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
 else
 ${OBJECTDIR}/ndFlash/ndFlash.p1: ndFlash/ndFlash.c  nbproject/Makefile-${CND_CONF}.mk
@@ -127,14 +151,6 @@ ${OBJECTDIR}/main.p1: main.c  nbproject/Makefile-${CND_CONF}.mk
 	@-${MV} ${OBJECTDIR}/main.d ${OBJECTDIR}/main.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/main.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
-${OBJECTDIR}/ndEventBusCore/ndEventBusCore.p1: ndEventBusCore/ndEventBusCore.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/ndEventBusCore 
-	@${RM} ${OBJECTDIR}/ndEventBusCore/ndEventBusCore.p1.d 
-	@${RM} ${OBJECTDIR}/ndEventBusCore/ndEventBusCore.p1 
-	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,+asmfile,-speed,+space,-debug --addrqual=ignore --mode=free -P -N255 --warn=0 --asmlist --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib --output=-mcof,+elf:multilocs --stack=compiled:auto:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/ndEventBusCore/ndEventBusCore.p1  ndEventBusCore/ndEventBusCore.c 
-	@-${MV} ${OBJECTDIR}/ndEventBusCore/ndEventBusCore.d ${OBJECTDIR}/ndEventBusCore/ndEventBusCore.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/ndEventBusCore/ndEventBusCore.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
 ${OBJECTDIR}/ndETimer1/ndETimer1.p1: ndETimer1/ndETimer1.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/ndETimer1 
 	@${RM} ${OBJECTDIR}/ndETimer1/ndETimer1.p1.d 
@@ -143,12 +159,60 @@ ${OBJECTDIR}/ndETimer1/ndETimer1.p1: ndETimer1/ndETimer1.c  nbproject/Makefile-$
 	@-${MV} ${OBJECTDIR}/ndETimer1/ndETimer1.d ${OBJECTDIR}/ndETimer1/ndETimer1.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/ndETimer1/ndETimer1.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
+${OBJECTDIR}/ndEeprom/ndEeprom.p1: ndEeprom/ndEeprom.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/ndEeprom 
+	@${RM} ${OBJECTDIR}/ndEeprom/ndEeprom.p1.d 
+	@${RM} ${OBJECTDIR}/ndEeprom/ndEeprom.p1 
+	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,+asmfile,-speed,+space,-debug --addrqual=ignore --mode=free -P -N255 --warn=0 --asmlist --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib --output=-mcof,+elf:multilocs --stack=compiled:auto:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/ndEeprom/ndEeprom.p1  ndEeprom/ndEeprom.c 
+	@-${MV} ${OBJECTDIR}/ndEeprom/ndEeprom.d ${OBJECTDIR}/ndEeprom/ndEeprom.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/ndEeprom/ndEeprom.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/ndInternalMemory/ndInternalMemory.p1: ndInternalMemory/ndInternalMemory.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/ndInternalMemory 
+	@${RM} ${OBJECTDIR}/ndInternalMemory/ndInternalMemory.p1.d 
+	@${RM} ${OBJECTDIR}/ndInternalMemory/ndInternalMemory.p1 
+	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,+asmfile,-speed,+space,-debug --addrqual=ignore --mode=free -P -N255 --warn=0 --asmlist --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib --output=-mcof,+elf:multilocs --stack=compiled:auto:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/ndInternalMemory/ndInternalMemory.p1  ndInternalMemory/ndInternalMemory.c 
+	@-${MV} ${OBJECTDIR}/ndInternalMemory/ndInternalMemory.d ${OBJECTDIR}/ndInternalMemory/ndInternalMemory.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/ndInternalMemory/ndInternalMemory.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/ndEventBusCore/ndEventBusCore.p1: ndEventBusCore/ndEventBusCore.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/ndEventBusCore 
+	@${RM} ${OBJECTDIR}/ndEventBusCore/ndEventBusCore.p1.d 
+	@${RM} ${OBJECTDIR}/ndEventBusCore/ndEventBusCore.p1 
+	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,+asmfile,-speed,+space,-debug --addrqual=ignore --mode=free -P -N255 --warn=0 --asmlist --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib --output=-mcof,+elf:multilocs --stack=compiled:auto:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/ndEventBusCore/ndEventBusCore.p1  ndEventBusCore/ndEventBusCore.c 
+	@-${MV} ${OBJECTDIR}/ndEventBusCore/ndEventBusCore.d ${OBJECTDIR}/ndEventBusCore/ndEventBusCore.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/ndEventBusCore/ndEventBusCore.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/ndEventBusCore/ndEventBusCoreEventDispatcher.p1: ndEventBusCore/ndEventBusCoreEventDispatcher.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/ndEventBusCore 
+	@${RM} ${OBJECTDIR}/ndEventBusCore/ndEventBusCoreEventDispatcher.p1.d 
+	@${RM} ${OBJECTDIR}/ndEventBusCore/ndEventBusCoreEventDispatcher.p1 
+	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,+asmfile,-speed,+space,-debug --addrqual=ignore --mode=free -P -N255 --warn=0 --asmlist --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib --output=-mcof,+elf:multilocs --stack=compiled:auto:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/ndEventBusCore/ndEventBusCoreEventDispatcher.p1  ndEventBusCore/ndEventBusCoreEventDispatcher.c 
+	@-${MV} ${OBJECTDIR}/ndEventBusCore/ndEventBusCoreEventDispatcher.d ${OBJECTDIR}/ndEventBusCore/ndEventBusCoreEventDispatcher.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/ndEventBusCore/ndEventBusCoreEventDispatcher.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
 endif
 
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: assemble
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
+${OBJECTDIR}/ndEventBusCore/ndEventBusCoreEventDispatcher.obj: ndEventBusCore/ndEventBusCoreEventDispatcher.asm  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/ndEventBusCore 
+	@${RM} ${OBJECTDIR}/ndEventBusCore/ndEventBusCoreEventDispatcher.obj.d 
+	@${RM} ${OBJECTDIR}/ndEventBusCore/ndEventBusCoreEventDispatcher.obj 
+	${MP_CC} -C $(MP_EXTRA_AS_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  -D__DEBUG=1 --debugger=pickit3  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,+asmfile,-speed,+space,-debug --addrqual=ignore --mode=free -P -N255 --warn=0 --asmlist --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib --output=-mcof,+elf:multilocs --stack=compiled:auto:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"  -o${OBJECTDIR}/ndEventBusCore/ndEventBusCoreEventDispatcher.obj  ndEventBusCore/ndEventBusCoreEventDispatcher.asm 
+	@-${MV} ${OBJECTDIR}/ndEventBusCore/ndEventBusCoreEventDispatcher.d ${OBJECTDIR}/ndEventBusCore/ndEventBusCoreEventDispatcher.obj.d 
+	@${FIXDEPS} ${OBJECTDIR}/ndEventBusCore/ndEventBusCoreEventDispatcher.obj.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
 else
+${OBJECTDIR}/ndEventBusCore/ndEventBusCoreEventDispatcher.obj: ndEventBusCore/ndEventBusCoreEventDispatcher.asm  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/ndEventBusCore 
+	@${RM} ${OBJECTDIR}/ndEventBusCore/ndEventBusCoreEventDispatcher.obj.d 
+	@${RM} ${OBJECTDIR}/ndEventBusCore/ndEventBusCoreEventDispatcher.obj 
+	${MP_CC} -C $(MP_EXTRA_AS_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,+asmfile,-speed,+space,-debug --addrqual=ignore --mode=free -P -N255 --warn=0 --asmlist --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib --output=-mcof,+elf:multilocs --stack=compiled:auto:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"  -o${OBJECTDIR}/ndEventBusCore/ndEventBusCoreEventDispatcher.obj  ndEventBusCore/ndEventBusCoreEventDispatcher.asm 
+	@-${MV} ${OBJECTDIR}/ndEventBusCore/ndEventBusCoreEventDispatcher.d ${OBJECTDIR}/ndEventBusCore/ndEventBusCoreEventDispatcher.obj.d 
+	@${FIXDEPS} ${OBJECTDIR}/ndEventBusCore/ndEventBusCoreEventDispatcher.obj.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
 endif
 
 # ------------------------------------------------------------------------------------

@@ -9,13 +9,14 @@
  * The code is used to know which function will be called by the event dispatcher.
  */
 typedef union _eventCode_t {
-	struct {
-		unsigned type : 2; /* Type of this event, one of EVENT_TYPE_* constant */
+    struct {
+        unsigned isNotEmpty : 1; /* Is 0 if the eventcode represent an empty event */
+        unsigned type : 1; /* Type of this event, one of EVENT_TYPE_* constant */
         unsigned moduleId : 6; /* Id of the module that have sent this event */
-       	unisgned eventId : 8 /**/
-	};
-	uint16_t eventCode;
-} eventCode_t; 
+        unsigned eventId : 8; /**/
+    } eventStruct;
+    uint16_t eventCode;
+} eventCode_t;
 
 /**
  * Structure defining an event during the runtime.

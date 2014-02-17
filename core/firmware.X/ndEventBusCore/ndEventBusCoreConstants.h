@@ -8,10 +8,8 @@
  * HW : Events that are send after a hardware interrupt occured. ex : a counter overflow.
  * SW : Events that are defined by modules. ex : We have receive a msg from the user.
  */
-#define EVENT_TYPE_SPECIAL 0
-#define EVENT_TYPE_CORE 1
-#define EVENT_TYPE_HW 2
-#define EVENT_TYPE_SW 3
+#define EVENT_TYPE_HW 0
+#define EVENT_TYPE_SW 1
 
 /**
  *
@@ -30,5 +28,14 @@
 #define EVENT_1BYTE_PAYLOAD 1
 #define EVENT_2BYTES_PAYLOAD 2
 #define EVENT_4BYTES_PAYLOAD 3
+
+/*
+ * The eventbus require some eeprom to maintain some value between shutdown/start
+ * cycle.
+ */
+#define EVENTBUS_RESERVED_EEPROM_LENGTH 1
+
+#define EVENTBUS_EVENTHANDLER_START_ADDRESS
+#define EVENTBUS_
 
 #endif
