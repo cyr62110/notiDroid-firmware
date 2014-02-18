@@ -1,7 +1,8 @@
+#include "../ndCore.h"
+
 #include "ndEventBusCoreEventDispatcher.h"
 #include "ndEventBusCoreConstants.h"
 
-#pragma psect text%%u=ndEventBusCoreEventDispatcherPsect
 void dispatchEvent(eventCode_t eventCode) {
 	/* If it is an empty event, we have nothing to do */
     if(eventCode.eventStruct.isNotEmpty)

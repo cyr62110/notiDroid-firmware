@@ -22,7 +22,18 @@
       <logicalFolder name="f4" displayName="ndInternalMemory" projectFiles="true">
         <itemPath>ndInternalMemory/ndInternalMemory.h</itemPath>
       </logicalFolder>
-      <itemPath>ndETimer1/ndETimer1.h</itemPath>
+      <logicalFolder name="f5" displayName="ndTimer0" projectFiles="true">
+        <itemPath>ndTimer0/ndTimer0.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f6" displayName="ndTimer1" projectFiles="true">
+        <itemPath>ndETimer1/ndTimer1.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f8" displayName="ndTimer2" projectFiles="true">
+        <itemPath>ndTimer2/ndTimer2.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f7" displayName="ndTimer3" projectFiles="true">
+        <itemPath>ndTimer3/ndTimer3.h</itemPath>
+      </logicalFolder>
       <itemPath>ndCore.h</itemPath>
       <itemPath>/Users/cyr62110/Documents/Projets/notiDroid/core/firmware.X/ndCoreConfigurationBits.h</itemPath>
     </logicalFolder>
@@ -47,8 +58,20 @@
       <logicalFolder name="f2" displayName="ndInternalMemory" projectFiles="true">
         <itemPath>ndInternalMemory/ndInternalMemory.c</itemPath>
       </logicalFolder>
+      <logicalFolder name="f5" displayName="ndTimer0" projectFiles="true">
+        <itemPath>ndTimer0/ndTimer0.c</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f6" displayName="ndTimer1" projectFiles="true">
+        <itemPath>ndETimer1/ndTimer1.c</itemPath>
+        <itemPath>ndETimer1.c</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f7" displayName="ndTimer2" projectFiles="true">
+        <itemPath>ndTimer2/ndTimer2.c</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f8" displayName="ndTimer3" projectFiles="true">
+        <itemPath>ndTimer3/ndTimer3.c</itemPath>
+      </logicalFolder>
       <itemPath>main.c</itemPath>
-      <itemPath>ndETimer1/ndETimer1.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

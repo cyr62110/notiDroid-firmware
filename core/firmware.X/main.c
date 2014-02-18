@@ -1,12 +1,24 @@
 #include "ndCore.h"
-#include "ndETimer1/ndETimer1.h"
+#include "ndETimer1/ndTimer1.h"
+#include "ndTimer0/ndTimer0.h"
+#include "ndTimer2/ndTimer2.h"
+#include "ndTimer3/ndTimer3.h"
 #include "ndFlash/ndFlash.h"
 #include "ndEventBusCore/ndEventBusCoreEventDispatcher.h"
 #include "ndEventBusCore/ndEventBusCoreConstants.h"
 
 void interrupt isr() {
+    if(timer0Interrupt()) {
+        onTimer0Interrupt();
+    }
     if(timer1Interrupt()) {
         onTimer1Interrupt();
+    }
+    if(timer2Interrupt()) {
+        onTimer2Interrupt();
+    }
+    if(timer3Interrupt()) {
+        onTimer3Interrupt();
     }
     
 }
@@ -39,16 +51,25 @@ int main(int argc, char** argv) {
     //seekFlash((uint24_t)0x602);
     //flushFlash();
 
-    eventCode_t eventCode;
+    /* eventCode_t eventCode;
     eventCode.eventStruct.isNotEmpty = 1;
     eventCode.eventStruct.type = EVENT_TYPE_SW;
     eventCode.eventStruct.moduleId = 2;
     eventCode.eventStruct.eventId = 0x34;
-    dispatchEvent(eventCode);
+    dispatchEvent(eventCode); */
 
     //asm("goto 5FEh");
     //on();
     //test((void*)on); /* This is the trick behind all the eventbus architecture */
+
+    timer2Config_t timerConfig;
+    timerConfig.useInterrupt = 1;
+    timerConfig.shouldLoop = 1;
+    timerConfig.triggerEvent = 0;
+
+    setUpTimer2(timerConfig);
+    setTimer2(123, 128);
+    startTimer2();
 
     while(1);
 }

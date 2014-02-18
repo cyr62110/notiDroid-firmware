@@ -1,6 +1,10 @@
-_main: CODE, 132 0 56
-__initialization: CODE, 258 0 12
-_isr: CODE, 8 0 120
-_onTimer1Interrupt: CODE, 188 0 36
-_dispatchEvent: CODE, 224 0 34
-Total: 258
+_setUpTimer2: CODE, 534 0 24
+_main: CODE, 348 0 46
+__initialization: CODE, 558 0 12
+_isr: CODE, 8 0 138
+_onTimer0Interrupt: CODE, 466 0 36
+_onTimer1Interrupt: CODE, 430 0 36
+_onTimer2Interrupt: CODE, 502 0 32
+_onTimer3Interrupt: CODE, 394 0 36
+_setTimer2: CODE, 150 0 198
+Total: 558

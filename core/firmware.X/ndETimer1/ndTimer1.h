@@ -45,7 +45,7 @@ void setTimer1(uint16_t initialValue, uint8_t prescaler);
  * Reset the timer.
  * For internal use only. Should be removed from this .h
  */
-#define resetTimer1() TMR1 = initialValue
+#define resetTimer1() TMR1 = timer1InitialValue
 
 /**
  * Has the timer1 trigger his interrupt
