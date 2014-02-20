@@ -1,10 +1,22 @@
-_setUpTimer2: CODE, 534 0 24
-_main: CODE, 348 0 46
-__initialization: CODE, 558 0 12
+_initDimmingTimer: CODE, 762 0 14
+_loadConfigurationFromEeprom: CODE, 150 0 194
+_initBlinkingTimer: CODE, 2090 0 2
+_openEeprom: CODE, 470 0 36
+_setUpTimer3: CODE, 646 0 26
+_closeInternalMemory: CODE, 2070 0 10
+_main: CODE, 732 0 16
+_setDimmingTimer: CODE, 418 0 52
+__initialization: CODE, 714 0 12
 _isr: CODE, 8 0 138
-_onTimer0Interrupt: CODE, 466 0 36
-_onTimer1Interrupt: CODE, 430 0 36
-_onTimer2Interrupt: CODE, 502 0 32
-_onTimer3Interrupt: CODE, 394 0 36
-_setTimer2: CODE, 150 0 198
-Total: 558
+_openInternalMemory: CODE, 672 0 22
+_onTimer0Interrupt: CODE, 578 0 36
+_onTimer1Interrupt: CODE, 542 0 36
+_onTimer2Interrupt: CODE, 614 0 32
+_onTimer3Interrupt: CODE, 506 0 36
+_setBlinkingTimer: CODE, 2088 0 2
+_seekEeprom: CODE, 2060 0 10
+_setTimer3: CODE, 344 0 74
+_closeEeprom: CODE, 694 0 20
+_initLedDriver: CODE, 748 0 14
+_readEeprom: CODE, 2080 0 8
+Total: 790

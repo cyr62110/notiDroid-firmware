@@ -1,26 +1,17 @@
 #include "ndCore.h"
-#include "ndETimer1/ndTimer1.h"
-#include "ndTimer0/ndTimer0.h"
-#include "ndTimer2/ndTimer2.h"
-#include "ndTimer3/ndTimer3.h"
-#include "ndFlash/ndFlash.h"
+#include "ndLedDriver/ndLedDriver.h"
 #include "ndEventBusCore/ndEventBusCoreEventDispatcher.h"
 #include "ndEventBusCore/ndEventBusCoreConstants.h"
 
+#include "ndTimer0/ndTimer0.h"
+#include "ndETimer1/ndTimer1.h"
+#include "ndTimer2/ndTimer2.h"
+#include "ndTimer3/ndTimer3.h"
+
 void interrupt isr() {
-    if(timer0Interrupt()) {
-        onTimer0Interrupt();
+    if(dimmingTimerInterrupt()) {
+        onDimmingTimerInterrupt();
     }
-    if(timer1Interrupt()) {
-        onTimer1Interrupt();
-    }
-    if(timer2Interrupt()) {
-        onTimer2Interrupt();
-    }
-    if(timer3Interrupt()) {
-        onTimer3Interrupt();
-    }
-    
 }
 
 void test(void* addr) {
@@ -40,6 +31,9 @@ int main(int argc, char** argv) {
     /* We configure the interruption */
     INTCONbits.GIE = 1;
     INTCONbits.PEIE = 1;
+
+    /* We configure the led driver */
+    initLedDriver();
 
     /* We will make some magic */
     //eraseFlash((uint24_t)0x5FE);
@@ -62,14 +56,7 @@ int main(int argc, char** argv) {
     //on();
     //test((void*)on); /* This is the trick behind all the eventbus architecture */
 
-    timer2Config_t timerConfig;
-    timerConfig.useInterrupt = 1;
-    timerConfig.shouldLoop = 1;
-    timerConfig.triggerEvent = 0;
-
-    setUpTimer2(timerConfig);
-    setTimer2(123, 128);
-    startTimer2();
+    
 
     while(1);
 }

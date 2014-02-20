@@ -32,7 +32,8 @@ void writeEeprom(uint8_t data) {
 }
 
 uint8_t readEeprom() {
-    asm("TBLRD*+");
+    EECON1bits.RD = 1;
+    EEADR ++;
     return EEDATA;
 }
 

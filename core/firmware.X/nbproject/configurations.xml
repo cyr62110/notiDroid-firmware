@@ -22,6 +22,12 @@
       <logicalFolder name="f4" displayName="ndInternalMemory" projectFiles="true">
         <itemPath>ndInternalMemory/ndInternalMemory.h</itemPath>
       </logicalFolder>
+      <logicalFolder name="f9" displayName="ndLedDriver" projectFiles="true">
+        <itemPath>ndLedDriver/ndLedDriver.h</itemPath>
+        <itemPath>ndLedDriver/ndLedDriverTypes.h</itemPath>
+        <itemPath>ndLedDriver/ndLedDriverConstants.h</itemPath>
+        <itemPath>ndLedDriver/ndLedDriverInternalFunctions.h</itemPath>
+      </logicalFolder>
       <logicalFolder name="f5" displayName="ndTimer0" projectFiles="true">
         <itemPath>ndTimer0/ndTimer0.h</itemPath>
       </logicalFolder>
@@ -57,6 +63,10 @@
       </logicalFolder>
       <logicalFolder name="f2" displayName="ndInternalMemory" projectFiles="true">
         <itemPath>ndInternalMemory/ndInternalMemory.c</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f9" displayName="ndLedDriver" projectFiles="true">
+        <itemPath>ndLedDriver/ndLedDriver.c</itemPath>
+        <itemPath>ndLedDriver/ndLedDriverEeprom.asm</itemPath>
       </logicalFolder>
       <logicalFolder name="f5" displayName="ndTimer0" projectFiles="true">
         <itemPath>ndTimer0/ndTimer0.c</itemPath>

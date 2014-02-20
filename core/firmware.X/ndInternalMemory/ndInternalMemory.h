@@ -28,6 +28,16 @@ uint8_t openInternalMemory();
 void doWriteInternalMemory();
 
 /**
+ * Macro providing an easy way to read a byte from one of the internal memmory
+ */
+#define readByteInternalMemory(readFunction, returnVariable) { returnVariable = readFunction(); }
+
+/**
+ * Macro providing an easy way to read a word from one of the internal memory
+ */
+#define readWordInternalMemory(readFunction, returnVariable) { returnVariable = readFunction(); returnVariable |= ((uint16_t)readFunction()) << 8; }
+
+/**
  * Release the lock.
  * /!\ Do not forget or you will not be able to use any module.
  */
