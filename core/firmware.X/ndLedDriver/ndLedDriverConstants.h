@@ -13,7 +13,22 @@
  */
 #define LEDDRIVER_NUMBER_OF_LEDS 8
 
-typedef uint8_t nextLedStates_t;
+/**
+ * Number of physical pin on the microcontroller that can be controlled by on register.
+ * This part is not configurable in the current version of this module
+ */
+#define LEDDRIVER_NUMBER_OF_PIN_PER_REGISTER 8
+
+/**
+ * Number of register that control led states.
+ * For ex., with 8 leds, we only use one port which is represented by on register.
+ */
+#define LEDDRIVER_NUMBER_OF_REGISTERS LEDDRIVER_NUMBER_OF_LEDS / LEDDRIVER_NUMBER_OF_PIN_PER_REGISTER
+
+/**
+ * Mask used to know if the counter has reached its max value
+ */
+#define LEDDRIVER_COUNTER_RESET_MASK 0x1F
 
 /**
  *

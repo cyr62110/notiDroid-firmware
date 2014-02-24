@@ -7,6 +7,8 @@
 #include "../ndEeprom/ndEeprom.h"
 
 ledDriverInternalState_t ledDriverInternalState;
+uint8_t i;
+register_t shift;
 
 void initLedDriver() {
     /* We initialize both timers */
@@ -65,10 +67,42 @@ void setDimmingTimer(uint8_t writeInConfig, uint16_t baseValue, uint16_t prescal
 void onDimmingTimerInterrupt() {
     onTimer3Interrupt();
     if(ledDriverInternalState.dimming.currentDimmingCycle == LEDDRIVER_COMPUTE_CYCLE) {
-        
+        /* We increment the counter */
+       ledDriverInternalState.dimming.counter ++;
+       if(ledDriverInternalState.dimming.counter & ledDriverInternalState.dimming.counterResetMask == 0)
+       {
+       		for(i = 0; i < LEDDRIVER_NUMBER_OF_REGISTERS; i++)
+       			ledDriverInternalState.dimming.nextLedStates[i] = 0xFF;
+       		ledDriverInternalState.dimming.counter = 0;
+       } 
+       
+   	   /* TODO : Add some comment here */
+   	   for(i = 0; i < LEDDRIVER_NUMBER_OF_LEDS; i++) {
+   			/* */
+   			if(i & 0x0F == 0) shift = 0xFE;
+   			
+   			/* */
+   			if(ledDriverInternalState.dimming.counter == ledDriverInternalState.dimming.ledShutOffValue[i])
+   				ledDriverInternalState.dimming.nextLedStates[i & 0x0F] &= shift;
+   			
+       		/* */
+       		shift = shift << 1 | 1; 
+	   }
+	   
+       /* We compute the led states that will be applied to the register*/
+       /* TODO : add blinking */
+       for(i = 0; i < LEDDRIVER_NUMBER_OF_REGISTERS; i++)
+       		ledDriverInternalState.leds[i].computedNextLedStates = ledDriverInternalState.dimming.nextLedStates[i];
     } else {
-        
+    	/* TODO : Add a comment here */
+        for(i = 0; i < LEDDRIVER_NUMBER_OF_REGISTERS; i++) {
+        	ledsInternalState_t *currentLeds = ledDriverInternalState.leds + i;
+        	currentLeds->portRegister =  currentLeds->computedNextLedStates 
+				| ( currentLeds->latchRegister 
+				& currentLeds->mask ) ;
+    	}
     }
+    /* We change the type of the next cycle : COMPUTE -> ACT -> COMPUTE -> ... */
     ledDriverInternalState.dimming.currentDimmingCycle ~= ledDriverInternalState.dimming.currentDimmingCycle;
 }
 
