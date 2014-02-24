@@ -28,7 +28,7 @@ void setDimmingTimer(uint8_t writeInConfig, uint16_t baseValue, uint16_t prescal
 /**
  * Test if the dimming timer has interrupted
  */
-#define dimmingTimerInterrupt onTimer3Interrupt
+#define dimmingTimerInterrupt timer3Interrupt
 
 /**
  * This function must be called when the dimming timer interrupts.

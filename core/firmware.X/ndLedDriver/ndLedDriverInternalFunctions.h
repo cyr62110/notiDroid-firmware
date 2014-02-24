@@ -9,10 +9,20 @@
 #define	NDLEDDRIVERINTERNALFUNCTIONS_H
 
 /**
+ * Initialize the internal state of this module.
+ */
+void initInternalState();
+
+/**
  * Initialize the dimming timer module.
  * This function is called at the initialization of the module.
  */
 void initDimmingTimer();
+
+/**
+ * Initialize the internal state
+ */
+void initDimmingInternalState();
 
 /**
  * Initialize the blinking timer module.

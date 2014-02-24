@@ -1,9 +1,12 @@
 #include "ndLedDriver.h"
 #include "ndLedDriverInternalFunctions.h"
 #include "ndLedDriverConstants.h"
+#include "ndLedDriverTypes.h"
 
 #include "../ndInternalMemory/ndInternalMemory.h"
 #include "../ndEeprom/ndEeprom.h"
+
+ledDriverInternalState_t ledDriverInternalState;
 
 void initLedDriver() {
     /* We initialize both timers */
@@ -60,7 +63,13 @@ void setDimmingTimer(uint8_t writeInConfig, uint16_t baseValue, uint16_t prescal
 }
 
 void onDimmingTimerInterrupt() {
-    /* TODO */
+    onTimer3Interrupt();
+    if(ledDriverInternalState.dimming.currentDimmingCycle == LEDDRIVER_COMPUTE_CYCLE) {
+        
+    } else {
+        
+    }
+    ledDriverInternalState.dimming.currentDimmingCycle ~= ledDriverInternalState.dimming.currentDimmingCycle;
 }
 
 void setBlinkingTimer(uint8_t writeInConfig, uint16_t baseValue, uint16_t prescaler) {
