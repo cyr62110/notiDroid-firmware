@@ -35,6 +35,13 @@ int main(int argc, char** argv) {
     /* We configure the led driver */
     initLedDriver();
 
+    /* We configure the PORTA to be handled by the module */
+    configureRegister(&PORTA, &TRISA, 0x01);
+
+    setDimmingHighLevelLenght(0, 1);
+
+    startTimer3();
+
     /* We will make some magic */
     //eraseFlash((uint24_t)0x5FE);
 

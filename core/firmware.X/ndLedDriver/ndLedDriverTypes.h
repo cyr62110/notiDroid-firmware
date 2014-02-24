@@ -21,7 +21,7 @@ typedef struct _ledDriverConfiguration_t {
     uint8_t blinkingTimerPrescaler;
 } ledDriverConfiguration_t;
 
-typedef struct _ledsInternalState_t [
+typedef struct _ledsInternalState_t {
 	register_t *portRegister;
 	register_t *latchRegister;
 	register_t computedNextLedStates;
@@ -37,7 +37,7 @@ typedef struct _ledDriverInternalState_t {
     struct dimmingInternalState_t {
         unsigned currentDimmingCycle : 1;
         uint8_t counter; /* Counter */
-        uint8_t counterResetMask /* Bitmask used to know if the counter has reached its max value. If counter AND this value == 0 THEN reset the counter */
+        uint8_t counterResetMask; /* Bitmask used to know if the counter has reached its max value. If counter AND this value == 0 THEN reset the counter */
         uint8_t ledShutOffValue[LEDDRIVER_NUMBER_OF_LEDS];
         uint8_t nextLedStates[LEDDRIVER_NUMBER_OF_REGISTERS]; /* Variable that will be written on the register that controls the leds */
     } dimming;

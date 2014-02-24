@@ -67,6 +67,7 @@
       <logicalFolder name="f9" displayName="ndLedDriver" projectFiles="true">
         <itemPath>ndLedDriver/ndLedDriver.c</itemPath>
         <itemPath>ndLedDriver/ndLedDriverEeprom.asm</itemPath>
+        <itemPath>ndLedDriver/ndLedDriverInitFunctions.c</itemPath>
       </logicalFolder>
       <logicalFolder name="f5" displayName="ndTimer0" projectFiles="true">
         <itemPath>ndTimer0/ndTimer0.c</itemPath>

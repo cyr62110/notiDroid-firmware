@@ -28,7 +28,7 @@
 /**
  * Mask used to know if the counter has reached its max value
  */
-#define LEDDRIVER_COUNTER_RESET_MASK 0x1F
+#define LEDDRIVER_COUNTER_RESET_MASK 0x0F
 
 /**
  *

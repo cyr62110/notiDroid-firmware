@@ -40,11 +40,12 @@ void setTimer3(uint16_t uInitialValue, uint16_t prescaler) {
 }
 
 void onTimer3Interrupt() {
-    /* We reset the interruption and the timer value */
+    /* We reset the interruption and the timer value if required */
     resetTimer3Interrupt();
-    resetTimer3();
-
-    PORTAbits.RA0 = ~LATAbits.LA0;
+    if(timer3Config.shouldLoop == 1)
+        resetTimer3();
+    else
+        stopTimer3();
 }
 
 

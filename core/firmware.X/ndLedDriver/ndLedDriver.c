@@ -10,24 +10,23 @@ ledDriverInternalState_t ledDriverInternalState;
 uint8_t i;
 register_t shift;
 
-void initLedDriver() {
-    /* We initialize both timers */
-    initDimmingTimer();
-    initBlinkingTimer();
-    /* We load the configuration from the eeprom since they are not hardcoded */
-    loadConfigurationFromEeprom();
+void configureRegister(register_t *portRegister, register_t *latchRegister, register_t mask) {
+    for(i = 0; i < LEDDRIVER_NUMBER_OF_REGISTERS; i++) {
+        ledsInternalState_t *leds = ledDriverInternalState.leds + i;
+        if(leds->portRegister == (register_t*)0)
+        {
+            leds->portRegister = portRegister;
+            leds->latchRegister = latchRegister;
+            leds->mask = mask;
+            leds->computedNextLedStates = 0;
+        }
+    }
 }
 
-void initDimmingTimer() {
-    timer3Config_t dimmingTimerConfig;
-    dimmingTimerConfig.shouldLoop = 0;
-    dimmingTimerConfig.triggerEvent = 0;
-    dimmingTimerConfig.useInterrupt = 1;
-    setUpTimer3(dimmingTimerConfig);
-}
-
-void initBlinkingTimer() {
-    /* TODO with timer 1 */
+void setDimmingHighLevelLenght(uint8_t led, uint8_t highLevelLength) {
+    if(led >= LEDDRIVER_NUMBER_OF_LEDS)
+        return;
+    ledDriverInternalState.dimming.ledShutOffValue[led] = highLevelLength;
 }
 
 void loadConfigurationFromEeprom() {
@@ -35,7 +34,7 @@ void loadConfigurationFromEeprom() {
     uint16_t timerPrescaler;
 
     /* We open the eeprom if possible */
-    if(openEeprom()) {
+    if (openEeprom()) {
         /* We seek to the start and we load the value, one by one */
         seekEeprom(LEDDRIVER_CONFIGURATION_EEPROM_START_ADDRESS);
         /* Base value and prescaler for the dimming timer */
@@ -47,7 +46,7 @@ void loadConfigurationFromEeprom() {
         readWordInternalMemory(readEeprom, timerBaseValue);
         readWordInternalMemory(readEeprom, timerPrescaler);
         setBlinkingTimer(0, timerBaseValue, timerPrescaler);
-        
+
         /* Do not forget to close the eeprom */
         closeEeprom();
     }
@@ -55,7 +54,7 @@ void loadConfigurationFromEeprom() {
 
 void setDimmingTimer(uint8_t writeInConfig, uint16_t baseValue, uint16_t prescaler) {
     /* If writeInConfig, we keep the configuration in eeprom */
-    if(writeInConfig && openEeprom()) {
+    if (writeInConfig && openEeprom()) {
         seekEeprom(LEDDRIVER_CONFIGURATION_EEPROM_START_ADDRESS);
         /* TODO */
         closeEeprom();
@@ -66,44 +65,43 @@ void setDimmingTimer(uint8_t writeInConfig, uint16_t baseValue, uint16_t prescal
 
 void onDimmingTimerInterrupt() {
     onTimer3Interrupt();
-    if(ledDriverInternalState.dimming.currentDimmingCycle == LEDDRIVER_COMPUTE_CYCLE) {
+    if (ledDriverInternalState.dimming.currentDimmingCycle == LEDDRIVER_COMPUTE_CYCLE) {
         /* We increment the counter */
-       ledDriverInternalState.dimming.counter ++;
-       if(ledDriverInternalState.dimming.counter & ledDriverInternalState.dimming.counterResetMask == 0)
-       {
-       		for(i = 0; i < LEDDRIVER_NUMBER_OF_REGISTERS; i++)
-       			ledDriverInternalState.dimming.nextLedStates[i] = 0xFF;
-       		ledDriverInternalState.dimming.counter = 0;
-       } 
-       
-   	   /* TODO : Add some comment here */
-   	   for(i = 0; i < LEDDRIVER_NUMBER_OF_LEDS; i++) {
-   			/* */
-   			if(i & 0x0F == 0) shift = 0xFE;
-   			
-   			/* */
-   			if(ledDriverInternalState.dimming.counter == ledDriverInternalState.dimming.ledShutOffValue[i])
-   				ledDriverInternalState.dimming.nextLedStates[i & 0x0F] &= shift;
-   			
-       		/* */
-       		shift = shift << 1 | 1; 
-	   }
-	   
-       /* We compute the led states that will be applied to the register*/
-       /* TODO : add blinking */
-       for(i = 0; i < LEDDRIVER_NUMBER_OF_REGISTERS; i++)
-       		ledDriverInternalState.leds[i].computedNextLedStates = ledDriverInternalState.dimming.nextLedStates[i];
+        ledDriverInternalState.dimming.counter++;
+        if ((ledDriverInternalState.dimming.counter & ledDriverInternalState.dimming.counterResetMask) == 0) {
+            for (i = 0; i < LEDDRIVER_NUMBER_OF_REGISTERS; i++)
+                ledDriverInternalState.dimming.nextLedStates[i] = 0xFF;
+            ledDriverInternalState.dimming.counter = 0;
+        }
+
+        /* TODO : Add some comment here */
+        for (i = 0; i < LEDDRIVER_NUMBER_OF_LEDS; i++) {
+            /* */
+            if ((i & 0x0F) == 0) shift = 0xFE;
+
+            /* */
+            if (ledDriverInternalState.dimming.counter == ledDriverInternalState.dimming.ledShutOffValue[i])
+                ledDriverInternalState.dimming.nextLedStates[i & 0x0F] &= shift;
+
+            /* */
+            shift = shift << 1 | 1;
+        }
+
+        /* We compute the led states that will be applied to the register*/
+        /* TODO : add blinking */
+        for (i = 0; i < LEDDRIVER_NUMBER_OF_REGISTERS; i++)
+            ledDriverInternalState.leds[i].computedNextLedStates = ledDriverInternalState.dimming.nextLedStates[i];
     } else {
-    	/* TODO : Add a comment here */
-        for(i = 0; i < LEDDRIVER_NUMBER_OF_REGISTERS; i++) {
-        	ledsInternalState_t *currentLeds = ledDriverInternalState.leds + i;
-        	currentLeds->portRegister =  currentLeds->computedNextLedStates 
-				| ( currentLeds->latchRegister 
-				& currentLeds->mask ) ;
-    	}
+        /* TODO : Add a comment here */
+        for (i = 0; i < LEDDRIVER_NUMBER_OF_REGISTERS; i++) {
+            ledsInternalState_t *currentLeds = ledDriverInternalState.leds + i;
+            *currentLeds->portRegister = currentLeds->computedNextLedStates
+                | (*currentLeds->latchRegister
+                & currentLeds->mask);
+        }
     }
     /* We change the type of the next cycle : COMPUTE -> ACT -> COMPUTE -> ... */
-    ledDriverInternalState.dimming.currentDimmingCycle ~= ledDriverInternalState.dimming.currentDimmingCycle;
+    ledDriverInternalState.dimming.currentDimmingCycle = ~ledDriverInternalState.dimming.currentDimmingCycle;
 }
 
 void setBlinkingTimer(uint8_t writeInConfig, uint16_t baseValue, uint16_t prescaler) {
