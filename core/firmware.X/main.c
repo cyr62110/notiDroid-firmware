@@ -36,9 +36,9 @@ int main(int argc, char** argv) {
     initLedDriver();
 
     /* We configure the PORTA to be handled by the module */
-    configureRegister(&PORTA, &TRISA, 0x01);
+    configureRegisterLedDriver(&PORTA, &TRISA, 0x01);
 
-    setDimmingHighLevelLenght(0, 1);
+    setDimmingHighLevelLenght(0, 8);
 
     startTimer3();
 

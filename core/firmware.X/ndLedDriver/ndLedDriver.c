@@ -8,7 +8,7 @@ ledDriverInternalState_t ledDriverInternalState;
 uint8_t i, j;
 register_t shift;
 
-void configureRegister(register_t *portRegister, register_t *latchRegister, register_t mask) {
+void configureRegisterLedDriver(register_t *portRegister, register_t *latchRegister, register_t mask) {
     for(i = 0; i < LEDDRIVER_NUMBER_OF_REGISTERS; i++) {
         ledsInternalState_t *leds = ledDriverInternalState.leds + i;
         if(leds->portRegister == (register_t*)0)

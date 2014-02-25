@@ -27,7 +27,7 @@ void initLedDriver();
  * @param latchRegister Matching latch register
  * @param mask Allow to disable some port by clearing the bit at 0. If all pin are connected to a led that should be driven by the module, mask = 0xFF
  */
-void configureRegister(register_t *portRegister, register_t *latchRegister, register_t mask);
+void configureRegisterLedDriver(register_t *portRegister, register_t *latchRegister, register_t mask);
 
 /**
  * Configure the base value and the prescaler of the dimming timer.
