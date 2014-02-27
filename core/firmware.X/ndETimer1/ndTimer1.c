@@ -15,8 +15,8 @@ void setUpTimer1(timer1Config_t config) {
     T1CON = 0;
     T1CONbits.RD16 = 1;
 
-    /* And we configure the interruption since we are using the eventbus */
-    PIE1bits.TMR1IE = 1;
+    /* And we configure the interruption */
+    PIE1bits.TMR1IE = config.useInterrupt;
 }
 
 void setTimer1(uint16_t uInitialValue, uint8_t prescaler) {

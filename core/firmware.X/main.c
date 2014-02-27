@@ -14,6 +14,12 @@ void interrupt isr() {
     }
 }
 
+void interrupt low_priority lowPriorityIsr() {
+    if(blinkingTimerInterrupt()) {
+        onBlinkingTimerInterrupt();
+    }
+}
+
 void test(void* addr) {
     TRISB = 0;
     PORTB = 1;
@@ -32,15 +38,25 @@ int main(int argc, char** argv) {
     INTCONbits.GIE = 1;
     INTCONbits.PEIE = 1;
 
+    /* We will use high priority interrupt only for the dimming since it is the only real time operation  */
+    /* All other interrupt will be low priority */
+    RCONbits.IPEN = 1;
+    IPR2bits.TMR3IP = 1; //Dimming is high priority
+    IPR1bits.TMR1IP = 0;
+    
+
     /* We configure the led driver */
     initLedDriver();
 
     /* We configure the PORTA to be handled by the module */
     configureRegisterLedDriver(&PORTA, &TRISA, 0x01);
 
-    setDimmingHighLevelLenght(0, 8);
+    setDimmingHighLevelLenght(0, 16);
+    setBlinkingPeriod(0, 100);
+    setBlinkingHighLevelDuration(0, 50);
 
     startTimer3();
+    startTimer1();
 
     /* We will make some magic */
     //eraseFlash((uint24_t)0x5FE);

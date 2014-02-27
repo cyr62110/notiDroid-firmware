@@ -24,6 +24,6 @@ void saveTimerToEeprom(uint8_t eepromStartAddress, uint16_t baseValue, uint16_t 
 
 #define saveDimmingTimerToEeprom(baseValue, prescaler) saveTimerToEeprom(LEDDRIVER_CONFIGURATION_DIMMING_START_ADDRESS, baseValue, prescaler)
 
-#define saveBlinkingTimerToEeprom(uint16_t baseValue, uint16_t prescaler) saveTimerToEeprom(LEDDRIVER_CONFIGURATION_BLINKING_START_ADDRESS, baseValue, prescaler)
+#define saveBlinkingTimerToEeprom(baseValue, prescaler) saveTimerToEeprom(LEDDRIVER_CONFIGURATION_BLINKING_START_ADDRESS, baseValue, prescaler)
 
 #endif

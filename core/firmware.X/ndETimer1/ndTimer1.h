@@ -17,6 +17,7 @@
 typedef struct _timer1Config {
     unsigned triggerEvent : 1;
     unsigned shouldLoop : 1;
+    unsigned useInterrupt : 1;
 } timer1Config_t;
 
 /**
@@ -51,6 +52,8 @@ void setTimer1(uint16_t initialValue, uint8_t prescaler);
  * Has the timer1 trigger his interrupt
  */
 #define timer1Interrupt() PIR1bits.TMR1IF
+
+#define resetTimer1Interrupt() PIR1bits.TMR1IF = 0
 
 /**
  * Function that should be called when the timer1 end

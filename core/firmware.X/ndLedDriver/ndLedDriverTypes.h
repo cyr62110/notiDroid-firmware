@@ -31,7 +31,7 @@ typedef struct _ledsInternalState_t {
 	register_t mask; /* Configure which pin will be controlled by the module. Set the bit to allow the pin to be controlled. */
 } ledsInternalState_t;
 
-struct _ledBlinkingInternalState_t {
+typedef struct _ledBlinkingInternalState_t {
     uint16_t counter; /* Counter for the led */
     uint16_t blinkingPeriod; /* Period of the blinking signal for one led */
     uint16_t blinkingHightLevelDuration; /* The duration of the high level for one led */

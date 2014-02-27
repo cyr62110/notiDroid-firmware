@@ -4,8 +4,10 @@
 #include "ndLedDriverTypes.h"
 #include "ndLedDriverEepromFunctions.h"
 
+#include "../ndETimer1/ndTimer1.h"
+
 extern ledDriverInternalState_t ledDriverInternalState;
-extern uint8_t i;
+extern uint8_t dimmingIterator;
 
 void initLedDriver() {
     /* We start by initializing the internal state */
@@ -19,8 +21,8 @@ void initLedDriver() {
 
 void initInternalState() {
     /* We clear led structures */
-    for (i = 0; i < LEDDRIVER_NUMBER_OF_REGISTERS; i++) {
-        ledsInternalState_t *leds = ledDriverInternalState.leds + i;
+    for (dimmingIterator = 0; dimmingIterator < LEDDRIVER_NUMBER_OF_REGISTERS; dimmingIterator++) {
+        ledsInternalState_t *leds = ledDriverInternalState.leds + dimmingIterator;
         leds->portRegister = (register_t*)0;
         leds->latchRegister = (register_t*)0;
         leds->computedNextLedStates = 0;
@@ -36,13 +38,20 @@ void initDimmingInternalState() {
     ledDriverInternalState.dimming.currentDimmingCycle = LEDDRIVER_COMPUTE_CYCLE;
     ledDriverInternalState.dimming.counter = 0;
     ledDriverInternalState.dimming.counterResetMask = LEDDRIVER_COUNTER_RESET_MASK; /* TODO Read it for eeprom ? ? ? */
-    for(i = 0; i < LEDDRIVER_NUMBER_OF_LEDS; i++)
-        ledDriverInternalState.dimming.ledShutOffValue[i] = 0;
-    for(i = 0; i < LEDDRIVER_NUMBER_OF_REGISTERS; i++)
-        ledDriverInternalState.dimming.nextLedStates[i] = 0;
+    for(dimmingIterator = 0; dimmingIterator < LEDDRIVER_NUMBER_OF_LEDS; dimmingIterator++)
+        ledDriverInternalState.dimming.ledShutOffValue[dimmingIterator] = 0;
+    for(dimmingIterator = 0; dimmingIterator < LEDDRIVER_NUMBER_OF_REGISTERS; dimmingIterator++)
+        ledDriverInternalState.dimming.nextLedStates[dimmingIterator] = 0xFF;
 }
 
 void initBlinkingInternalState() {
+    for(dimmingIterator = 0; dimmingIterator < LEDDRIVER_NUMBER_OF_LEDS; dimmingIterator++) {
+        ledDriverInternalState.blinking.leds[dimmingIterator].counter = 0;
+        ledDriverInternalState.blinking.leds[dimmingIterator].blinkingPeriod = 0xFFFF;
+        ledDriverInternalState.blinking.leds[dimmingIterator].blinkingHightLevelDuration = 0;
+    }
+    for(dimmingIterator = 0; dimmingIterator < LEDDRIVER_NUMBER_OF_REGISTERS; dimmingIterator++)
+        ledDriverInternalState.blinking.nextLedStates[dimmingIterator] = 0xFF;
 }
 
 void initDimmingTimer() {
@@ -58,5 +67,5 @@ void initBlinkingTimer() {
     blinkingTimerConfig.shouldLoop = 1;
     blinkingTimerConfig.triggerEvent = 0;
     blinkingTimerConfig.useInterrupt = 1;
-    setUpTimer1(dimmingTimerConfig);
+    setUpTimer1(blinkingTimerConfig);
 }

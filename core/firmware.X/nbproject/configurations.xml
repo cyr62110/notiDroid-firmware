@@ -27,6 +27,7 @@
         <itemPath>ndLedDriver/ndLedDriverTypes.h</itemPath>
         <itemPath>ndLedDriver/ndLedDriverConstants.h</itemPath>
         <itemPath>ndLedDriver/ndLedDriverInternalFunctions.h</itemPath>
+        <itemPath>ndLedDriver/ndLedDriverEepromFunctions.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f5" displayName="ndTimer0" projectFiles="true">
         <itemPath>ndTimer0/ndTimer0.h</itemPath>
@@ -68,6 +69,7 @@
         <itemPath>ndLedDriver/ndLedDriver.c</itemPath>
         <itemPath>ndLedDriver/ndLedDriverEeprom.asm</itemPath>
         <itemPath>ndLedDriver/ndLedDriverInitFunctions.c</itemPath>
+        <itemPath>ndLedDriver/ndLedDriverEepromFunctions.c</itemPath>
       </logicalFolder>
       <logicalFolder name="f5" displayName="ndTimer0" projectFiles="true">
         <itemPath>ndTimer0/ndTimer0.c</itemPath>
@@ -94,6 +96,7 @@
     <Elem>ndEventBusCore</Elem>
     <Elem>ndEeprom</Elem>
     <Elem>ndInternalMemory</Elem>
+    <Elem>ndLedDriver</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
