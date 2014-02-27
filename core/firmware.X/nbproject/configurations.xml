@@ -56,7 +56,6 @@
       </logicalFolder>
       <logicalFolder name="f4" displayName="ndEventBusCore" projectFiles="true">
         <itemPath>ndEventBusCore/ndEventBusCore.c</itemPath>
-        <itemPath>ndEventBusCore/ndEventBusCoreEventDispatcher.asm</itemPath>
         <itemPath>ndEventBusCore/ndEventBusCoreEventDispatcher.c</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="ndFlash" projectFiles="true">
