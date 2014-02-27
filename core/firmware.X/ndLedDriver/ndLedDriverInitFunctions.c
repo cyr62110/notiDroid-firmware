@@ -2,9 +2,7 @@
 #include "ndLedDriverInternalFunctions.h"
 #include "ndLedDriverConstants.h"
 #include "ndLedDriverTypes.h"
-
-#include "../ndInternalMemory/ndInternalMemory.h"
-#include "../ndEeprom/ndEeprom.h"
+#include "ndLedDriverEepromFunctions.h"
 
 extern ledDriverInternalState_t ledDriverInternalState;
 extern uint8_t i;
@@ -31,7 +29,7 @@ void initInternalState() {
 
     /* Then we configure dimming and blinking internal states */
     initDimmingInternalState();
-    /* TODO blinking */
+    initBlinkingInternalState();
 }
 
 void initDimmingInternalState() {
@@ -44,6 +42,9 @@ void initDimmingInternalState() {
         ledDriverInternalState.dimming.nextLedStates[i] = 0;
 }
 
+void initBlinkingInternalState() {
+}
+
 void initDimmingTimer() {
     timer3Config_t dimmingTimerConfig;
     dimmingTimerConfig.shouldLoop = 1;
@@ -53,5 +54,9 @@ void initDimmingTimer() {
 }
 
 void initBlinkingTimer() {
-    /* TODO with timer 1 */
+    timer1Config_t blinkingTimerConfig;
+    blinkingTimerConfig.shouldLoop = 1;
+    blinkingTimerConfig.triggerEvent = 0;
+    blinkingTimerConfig.useInterrupt = 1;
+    setUpTimer1(dimmingTimerConfig);
 }

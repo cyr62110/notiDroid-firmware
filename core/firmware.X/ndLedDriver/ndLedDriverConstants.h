@@ -41,9 +41,43 @@
 #define LEDDRIVER_ACT_CYCLE 1
 
 /**
- * Constants that give position of configuration value in the eeprom
+ * Since the configuration of this module can be modified by software, all the value are
+ * not hardcoded in the source code. So the module require some eeprom space to store its
+ * configuration.
+ * 
+ * Following constants are all related to the configuration and where it is stored in EEPROM
  */
-#define LEDDRIVER_CONFIGURATION_EEPROM_START_ADDRESS 0x10
+
+/**
+ * Address where the configuration of the module starts
+ */
+#define LEDDRIVER_CONFIGURATION_START_ADDRESS 0x10
+
+/**
+ * Position in EEPROM where is stored the base value and the prescaler for the dimming timer.
+ * Organisation :
+ * 	- Base Value : Double Word
+ *  - Prescaler : Double Word
+ */
+#define LEDDRIVER_CONFIGURATION_DIMMING_START_ADDRESS 0x10
+
+/**
+ * Length in bytes of the configuration of the dimming timer
+ */
+#define LEDDRIVER_CONFIGURATION_DIMMING_LENGHT 4
+
+/**
+ * Position in EEPROM where is stored the base value and the prescaler for the blinking timer.
+ * Organisation :
+ *  - Base Value : Double Word
+ *  - Prescaler : Double Word
+ */
+#define LEDDRIVER_CONFIGURATION_BLINKING_START_ADDRESS LEDDRIVER_CONFIGURATION_DIMMING_START_ADDRESS + LEDDRIVER_CONFIGURATION_DIMMING_LENGHT
+
+/**
+ * Length in bytes of the configuration of the blinking timer
+ */
+#define LEDDRIVER_CONFIGURATION_BLINKING_LENGHT 4
 
 #endif	/* NDLEDDRIVERCONSTANTS_H */
 

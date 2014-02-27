@@ -31,11 +31,9 @@ void initDimmingInternalState();
 void initBlinkingTimer();
 
 /**
- * Load the configuration of this module from the eeprom.
- * The configuration contains base values and prescalers for timers.
- * This function is called at the initialization of the module.
+ * Initialize the internal state
  */
-void loadConfigurationFromEeprom();
+void initBlinkingInternalState();
 
 #endif	/* NDLEDDRIVERINTERNALFUNCTIONS_H */
 

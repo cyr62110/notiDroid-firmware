@@ -16,7 +16,6 @@
 
 /**
  * Initialize the led driver module.
- * Il will make 
  */
 void initLedDriver();
 
@@ -64,7 +63,18 @@ void onDimmingTimerInterrupt();
  */
 void setBlinkingTimer(uint8_t writeInConfig, uint16_t baseValue, uint16_t prescaler);
 
-#define blinkingTimerInterrupt onTimer1Interrupt
+/**
+ * Set the 
+ * duration unit is 10ms.
+ */
+void setBlinkingHighLevelDuration(uint8_t led, uint8_t duration);
+
+/**
+ * period unit is 10ms.
+ */
+void setBlinkingPeriod(uint8_t led, uint8_t period);
+
+#define blinkingTimerInterrupt timer1Interrupt
 
 void onBlinkingTimerInterrupt();
 

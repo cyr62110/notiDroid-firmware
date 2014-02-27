@@ -2,12 +2,10 @@
 #include "ndLedDriverInternalFunctions.h"
 #include "ndLedDriverConstants.h"
 #include "ndLedDriverTypes.h"
-
-#include "../ndInternalMemory/ndInternalMemory.h"
-#include "../ndEeprom/ndEeprom.h"
+#include "ndLedDriverEepromFunctions.h"
 
 ledDriverInternalState_t ledDriverInternalState;
-uint8_t i;
+uint8_t i, j;
 register_t shift;
 
 void configureRegister(register_t *portRegister, register_t *latchRegister, register_t mask) {
@@ -29,36 +27,10 @@ void setDimmingHighLevelLenght(uint8_t led, uint8_t highLevelLength) {
     ledDriverInternalState.dimming.ledShutOffValue[led] = highLevelLength;
 }
 
-void loadConfigurationFromEeprom() {
-    uint16_t timerBaseValue;
-    uint16_t timerPrescaler;
-
-    /* We open the eeprom if possible */
-    if (openEeprom()) {
-        /* We seek to the start and we load the value, one by one */
-        seekEeprom(LEDDRIVER_CONFIGURATION_EEPROM_START_ADDRESS);
-        /* Base value and prescaler for the dimming timer */
-        readWordInternalMemory(readEeprom, timerBaseValue);
-        readWordInternalMemory(readEeprom, timerPrescaler);
-        setDimmingTimer(0, timerBaseValue, timerPrescaler);
-
-        /* Base value and prescaler for the blinking timer */
-        readWordInternalMemory(readEeprom, timerBaseValue);
-        readWordInternalMemory(readEeprom, timerPrescaler);
-        setBlinkingTimer(0, timerBaseValue, timerPrescaler);
-
-        /* Do not forget to close the eeprom */
-        closeEeprom();
-    }
-}
-
 void setDimmingTimer(uint8_t writeInConfig, uint16_t baseValue, uint16_t prescaler) {
     /* If writeInConfig, we keep the configuration in eeprom */
-    if (writeInConfig && openEeprom()) {
-        seekEeprom(LEDDRIVER_CONFIGURATION_EEPROM_START_ADDRESS);
-        /* TODO */
-        closeEeprom();
-    }
+    if (writeInConfig)
+    	saveDimmingTimerToEeprom();
     /* We reconfigure our dimming timer wich is Timer3 */
     setTimer3(baseValue, prescaler);
 }
@@ -105,10 +77,36 @@ void onDimmingTimerInterrupt() {
 }
 
 void setBlinkingTimer(uint8_t writeInConfig, uint16_t baseValue, uint16_t prescaler) {
-    /* TODO */
+    /* If writeInConfig, we keep the configuration in eeprom */
+    if (writeInConfig)
+    	saveDimmingTimerToEeprom();
+    /* We reconfigure our blinking timer wich is Timer1 */
+    setTimer1(baseValue, prescaler);
+}
+
+void setBlinkingHighLevelDuration(uint8_t led, uint8_t duration) {
+	if(led >= LEDDRIVER_NUMBER_OF_LEDS)
+        return;
+    ledDriverInternalState.blinking.leds[led].blinkingHightLevelDuration = duration;
+}
+
+void setBlinkingPeriod(uint8_t led, uint8_t period) {
+	if(led >= LEDDRIVER_NUMBER_OF_LEDS)
+        return;
+    /* If the high level duration is higher than period, the led will always stay on. So nothing dangerous to not handle the case */
+		
+	ledDriverInternalState.blinking.leds[led].blinkingPeriod = duration;
+	
+	/* We set the counter to the max value so it will reset on the next loop. */
+	/* It will affect the waveform for the current loop but will help to maintain consistency over the time */
+	/* Otherwise, the counter can go beyond its max value and iznogoud :) */
+	ledDriverInternalState.blinking.leds[led].counter = duration;
 }
 
 void onBlinkingTimerInterrupt() {
-    /* TODO */
+    ledBlinkingInternalState_t* led = (ledBlinkingInternalState_t*)0;
+    for(j = 0; j < LEDDRIVER_NUMBER_OF_LEDS; j ++ ) {
+    	/* TODO */
+	}
 }
 
