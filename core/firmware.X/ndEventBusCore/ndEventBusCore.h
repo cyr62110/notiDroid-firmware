@@ -18,13 +18,14 @@ void initEventBus();
  * Push an event on the eventbus.
  * @param event The event
  */
-void triggerEvent(event_t event);
+void triggerEvent(event_t* event);
 
 /**
- * 
- * @param out
+ * This function waits for event and dispatch them to the right function.
+ * /!\ It must be the last function called in the main function of your
+ * program since it never returns.
  */
-void nextEvent(event_t* out);
+void eventLoop();
 
 #endif
 

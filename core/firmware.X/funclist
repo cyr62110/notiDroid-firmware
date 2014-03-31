@@ -1,16 +1,22 @@
-_main: CODE, 1012 0 112
-_test: CODE, 1364 0 10
-_handleHardwareModuleEvent: CODE, 832 0 180
-__initialization: CODE, 1270 0 24
-_isr: CODE, 8 0 1228
-_onFirstHardwareModuleEvent: CODE, 1352 0 12
-_on: CODE, 1374 0 4
-_onTimer1Interrupt: CODE, 1300 0 20
-_onTimer3Interrupt: CODE, 1320 0 20
+_emptyEvent: CODE, 2112 0 12
+_initEventBus: CODE, 2148 0 6
+_triggerEvent: CODE, 2050 0 22
+_readOneByte: CODE, 1474 0 122
+_main: CODE, 832 0 216
+_initEventBusCircularBuffer: CODE, 1934 0 48
+__initialization: CODE, 1982 0 36
+_nextEvent: CODE, 1884 0 50
+_isr: CODE, 8 0 1818
+_putEventInBuffer: CODE, 1264 0 210
+_onFirstHardwareModuleEvent: CODE, 2136 0 12
+_writeOneByte: CODE, 1596 0 118
+_isEventBusCircularBufferEmpty: CODE, 1826 0 58
+_onTimer1Interrupt: CODE, 2072 0 20
+_onTimer3Interrupt: CODE, 2092 0 20
 _onDimmingTimerInterrupt: CODE, 172 0 440
-_dispatchEvent: CODE, 1236 0 34
-_configureInterrupt: CODE, 1340 0 12
+_pullEventFromBuffer: CODE, 1048 0 216
+_configureInterrupt: CODE, 2124 0 12
+_eventLoop: CODE, 2024 0 26
 _onBlinkingTimerInterrupt: CODE, 612 0 220
-_handleSoftwareModuleEvent: CODE, 1378 0 2
 _lowPriorityIsr: CODE, 24 0 144
-Total: 2462
+Total: 3826

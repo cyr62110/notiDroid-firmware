@@ -69,6 +69,4 @@ void registerFunctionForEvent(eventCode_t eventCode, uint24_t functionAddress);
  */
 void removeRegiteredFunctionsForEvent(eventCode_t eventCode);
 
-
-
 #endif

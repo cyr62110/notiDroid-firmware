@@ -7,15 +7,31 @@
  * Structure defining what is an eventCode.
  * Each type of event that will be send on the event has its own uniq code.
  * The code is used to know which function will be called by the event dispatcher.
+ * 
+ * It exists two kind of event :
+ * - Hardware are events related to module that use hardware capability like time, UART or ADC.
+ * - Software are events related to module that do not use hardware component like the eventbus.
+ *
+ * An event is bind to a module and has an id specific to this module. Event with same id but not
+ * with same module are not equals.
+ *
+ * A given event has always the same payload. So the payload size is
+ * part of the identificator of the event.
  */
 typedef union _eventCode_t {
     struct {
         unsigned isNotEmpty : 1; /* Is 0 if the eventcode represent an empty event */
-        unsigned type : 1; /* Type of this event, one of EVENT_TYPE_* constant */
-        unsigned moduleId : 6; /* Id of the module that have sent this event */
-        unsigned eventId : 8; /**/
-    } eventStruct;
-    uint16_t eventCode;
+        unsigned type : 1; /* Type of this event, SOFTWARE or HARDWARE */
+        unsigned moduleId : 6; /* Identificator of the module that have sent this event */
+        union {
+            struct {
+                unsigned : 6; /* Those bits are part of the eventId but should not be accessed from the struct */
+                unsigned payloadSize : 2; /* Number of bytes used to store data about this event. */
+            };
+            uint8_t eventId; /* Identificator of the event in the mode */
+        };
+    } internalStruct;
+    uint16_t internalCode; /* Code of the event. Event with the same code are similar. */
 } eventCode_t;
 
 /**
@@ -25,7 +41,6 @@ typedef union _eventCode_t {
  */
 typedef struct _event_t {
     eventCode_t eventCode; /* Identificator of the current event type */
-    uint8_t payloadSize; /* Number of bytes that are data enclosed in this event */
     uint8_t payload[4]; /* Data */
 } event_t;
 

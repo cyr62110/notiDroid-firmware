@@ -7,6 +7,7 @@
 #include "ndETimer1/ndTimer1.h"
 #include "ndTimer2/ndTimer2.h"
 #include "ndTimer3/ndTimer3.h"
+#include "ndEventBusCore/ndEventBusCore.h"
 
 void configureInterrupt();
 
@@ -22,46 +23,31 @@ void interrupt low_priority lowPriorityIsr() {
     }
 }
 
-void test(void* addr) {
-    TRISB = 0;
-    PORTB = 1;
-}
-
-void on() {
-    PORTAbits.RA0 = 1;
-}
-
 int main(int argc, char** argv) {
 
     TRISA = 0;
     PORTAbits.RA0 = 0;
 
+    /* We configure interruption that are required to make the firmware works */
     configureInterrupt();
 
-    /* We will make some magic */
-    //eraseFlash((uint24_t)0x5FE);
+    /* Then we initialize all module of the firmware */
+    initEventBus();
 
-    //openFlash();
-    //seekFlash((uint24_t)0x5FE);
-    //writeFlash(0x80);
-    //writeFlash(0x80);
-    //seekFlash((uint24_t)0x602);
-    //flushFlash();
+    event_t event;
+    event_t* out = &event;
+    out->eventCode.internalStruct.isNotEmpty = 1;
+    out->eventCode.internalStruct.type = EVENT_TYPE_HW;
+    out->eventCode.internalStruct.moduleId = 1;
+    out->eventCode.internalStruct.eventId = 255;
+    out->payload[0] = 1;
+    out->payload[1] = 2;
+    out->payload[2] = 3;
+    out->payload[3] = 4;
+    triggerEvent(out);
 
-    //asm("goto 5FEh");
-    on();
-    test((void*)on); /* This is the trick behind all the eventbus architecture */
-
-    PORTA = 0;
-
-    eventCode_t eventCode;
-    eventCode.eventStruct.isNotEmpty = 1;
-    eventCode.eventStruct.type = EVENT_TYPE_HW;
-    eventCode.eventStruct.moduleId = 1;
-    eventCode.eventStruct.eventId = 1;
-    dispatchEvent(eventCode);
-
-    while(1);
+    /* Everything is now configured. We start handling events with the eventbus. */
+    eventLoop();
 }
 
 void configureInterrupt() {
