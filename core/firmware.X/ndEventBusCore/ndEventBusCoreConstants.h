@@ -15,9 +15,14 @@
 #define EVENT_MODULE_EVENTBUS 0
 
 /**
- * Event ids of event that can be sent by the eventbus
+ * Event ids of events that can be sent by the eventbus
  */
-#define EVENT_DISPATCHER_REGISTER_HANDLERS 0x40
+/**
+ * The handler of this function MUST register all module and event handlers.
+ * This handler is only called once when the eventbus initialize itself for the very first
+ * time on this hardware. Reboot will not make this event to be triggered again.
+ */
+#define EVENT_EVENTBUS_REGISTER_HANDLERS 0x24 //Read as japenese do :)
 
 /**
  */
@@ -35,11 +40,43 @@
 /**
  * We define the maximum number of module that our event dispatcher can handle by type.
  */
-#define EVENTDISPATCHER_MAX_NUMBER_OF_MODULE_PER_TYPE 4  
+#define EVENTBUS_MAX_NUMBER_OF_MODULE_PER_TYPE 4
 
-#define EVENTDISPATCHER_MODULES_BLOCK_LENGHT 
+#define EVENTBUS_AVG_NUMBER_OF_EVENT_PER_MODULE 4
 
-#define EVENTDISPATCHER_BLOCK_HARDWARE_MODULES_START_ADDRESS
+/**
+ * Length in bytes of the code required to branch to the code that will handle events of a module in a dispatcher function.
+ */
+#define EVENTBUS_MODULE_LENGTH 10
+
+/**
+ * Length in bytes of the code required to branch to the function registered as the receiver of an event
+ */
+#define EVENTBUS_EVENT_LENGTH 10
+
+/**
+ * The dispatchSoftwareEventToModule function will be placed at 32 times this value
+ * minus the hardcoded part lenght
+ */
+#define EVENTBUS_SOFTWARE_MODULE_DISPATCHER_ALIGNMENT 80
+
+/**
+ * The lenght of the hardcoded part of the dispatchSoftwareEventToModule function that handle
+ * events of the eventbus itself.
+ */
+#define EVENTBUS_SOFTWARE_MODULE_HARDCODED_PART_LENGTH EVENTBUS_MODULE_LENGTH
+
+#define EVENTBUS_SOFTWARE_EVEN_HARDCODED_PART EVENTBUS_EVENT_LENGTH + 2
+
+/**
+ * The absolute address in the program where the dispatchSoftwareEventToModule function will be placed.
+ */
+#define EVENTBUS_SOFTWARE_MODULE_DISPATCHER_ADDRESS (32 * EVENTBUS_SOFTWARE_MODULE_DISPATCHER_ALIGNMENT - EVENTBUS_SOFTWARE_MODULE_HARDCODED_PART_LENGTH)
+
+/**
+ * The absolute address in the program where the dispatchSoftwareEventToHandler function will be placed.
+ */
+#define EVENTBUS_SOFTWARE_EVENT_DISPATCHER_ADDRESS (32 * (((32 * EVENTBUS_SOFTWARE_MODULE_DISPATCHER_ALIGNMENT + EVENTBUS_MAX_NUMBER_OF_MODULE_PER_TYPE * EVENTBUS_MODULE_LENGTH + 2) >> 5) + 1) - EVENTBUS_SOFTWARE_EVEN_HARDCODED_PART)
 
 /**
  * In order to generate free space in dispatcher function, we need to fill them

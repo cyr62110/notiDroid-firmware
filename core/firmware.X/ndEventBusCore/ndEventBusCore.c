@@ -9,6 +9,8 @@ event_t currentEvent;
 
 void emptyEvent(event_t *out);
 
+void triggerRegisterHandlersEvent();
+
 /**
  * Read the next event in the buffer and write it at the provided address.
  * Or write an empty event
@@ -17,8 +19,15 @@ void emptyEvent(event_t *out);
 void nextEvent(event_t* out);
 
 void initEventBus() {
-    /* We start by initializing the buffer that will contains the events */
+    /* We start by initializing the buffer that will contains events */
     initEventBusCircularBuffer();
+
+    /* We initialize the dispatcher too */
+
+    //TODO
+    /* Then we reload the state of the previous execution from the EEPROM */
+    /* If the dispatcher has never been configured, we ask the program to configure it. */
+    triggerRegisterHandlersEvent();
 
 }
 
@@ -47,7 +56,15 @@ void eventLoop() {
         /* We read the next event from the buffer */
         nextEvent(&currentEvent);
         /* And we dispatch it to the right function */
-        //dispatchEvent(currentEvent.eventCode);
-        PORTA = 0;
+        dispatchEvent(currentEvent.eventCode);
     }
+}
+
+void triggerRegisterHandlersEvent() {
+    event_t registerHandlersEvent;
+    registerHandlersEvent.eventCode.internalStruct.isNotEmpty = 1;
+    registerHandlersEvent.eventCode.internalStruct.type = EVENT_TYPE_SW;
+    registerHandlersEvent.eventCode.internalStruct.moduleId = EVENT_MODULE_EVENTBUS;
+    registerHandlersEvent.eventCode.internalStruct.eventId = EVENT_EVENTBUS_REGISTER_HANDLERS;
+    triggerEvent(&registerHandlersEvent);
 }

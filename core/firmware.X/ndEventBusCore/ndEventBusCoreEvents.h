@@ -7,7 +7,11 @@
 #ifndef NDEVENTBUSCOREEVENTS_H
 #define	NDEVENTBUSCOREEVENTS_H
 
-
+/**
+ * This function MUST register all modules and events so the eventbus will work
+ * properly.
+ */
+void event_eventBus_registerHandlers();
 
 #endif	/* NDEVENTBUSCOREEVENTS_H */
 

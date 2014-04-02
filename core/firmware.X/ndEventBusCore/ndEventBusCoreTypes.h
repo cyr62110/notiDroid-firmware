@@ -20,13 +20,14 @@
  */
 typedef union _eventCode_t {
     struct {
+        unsigned moduleId : 6; /* Identificator of the module that have sent this event */
         unsigned isNotEmpty : 1; /* Is 0 if the eventcode represent an empty event */
         unsigned type : 1; /* Type of this event, SOFTWARE or HARDWARE */
-        unsigned moduleId : 6; /* Identificator of the module that have sent this event */
         union {
+            /* Struct are defined LSB first when working with unsigned. So the payloadSize are the two LSB or the eventId */
             struct {
-                unsigned : 6; /* Those bits are part of the eventId but should not be accessed from the struct */
                 unsigned payloadSize : 2; /* Number of bytes used to store data about this event. */
+                unsigned : 6; /* Those bits are part of the eventId but should not be accessed from the struct */
             };
             uint8_t eventId; /* Identificator of the event in the mode */
         };
